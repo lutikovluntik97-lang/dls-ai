@@ -1,23 +1,55 @@
 const { GoogleGenAI } = require("@google/genai");
 
-const apiKey = process.env.GEMINI_API_KEY;
+module.exports = async (req, res) => {
+    // CORS
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-if (!apiKey) {
-    throw new Error("GEMINI_API_KEY не настроен в Vercel");
-}
+    // Preflight
+    if (req.method === "OPTIONS") {
+        return res.status(200).end();
+    }
 
-const ai = new GoogleGenAI({
-    apiKey
-});
+    // Только POST
+    if (req.method !== "POST") {
+        return res.status(405).json({
+            reply: "Метод не поддерживается."
+        });
+    }
 
-const models = [
-    "gemini-3.8-flash",
-    "gemini-3.7-flash",
-    "gemini-3.6-flash",
-    "gemini-3.5-flash"
-];
+    try {
+        // Проверяем API key
+        const apiKey = process.env.GEMINI_API_KEY;
 
-const systemInstruction = `
+        if (!apiKey) {
+            console.error("GEMINI_API_KEY отсутствует");
+            return res.status(500).json({
+                reply: "GEMINI_API_KEY не настроен в Vercel."
+            });
+        }
+
+        // Получаем сообщение
+        const message = req.body?.message;
+
+        if (!message || !message.trim()) {
+            return res.status(400).json({
+                reply: "Напиши вопрос."
+            });
+        }
+
+        // Gemini
+        const ai = new GoogleGenAI({
+            apiKey: apiKey
+        });
+
+        const response = await ai.models.generateContent({
+            model: "gemini-3.8-flash",
+
+            contents: message,
+
+            config: {
+                systemInstruction: `
 Ты — DLS AI, помощник школьной системы Divergents Leadership School.
 
 Ученик:
@@ -44,68 +76,22 @@ const systemInstruction = `
 Для задач объясняй решение пошагово.
 
 Отвечай дружелюбно и понятно.
-`;
-
-module.exports = async (req, res) => {
-    // Разрешаем CORS
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-    // Проверка CORS
-    if (req.method === "OPTIONS") {
-        return res.status(200).end();
-    }
-
-    // Разрешаем только POST
-    if (req.method !== "POST") {
-        return res.status(405).json({
-            reply: "Метод не поддерживается."
-        });
-    }
-
-    const message = req.body?.message;
-
-    if (!message || !message.trim()) {
-        return res.status(400).json({
-            reply: "Напиши вопрос."
-        });
-    }
-
-    for (const model of models) {
-        try {
-            const response = await ai.models.generateContent({
-                model,
-                contents: message,
-                config: {
-                    systemInstruction
-                }
-            });
-
-            return res.status(200).json({
-                reply: response.text,
-                model
-            });
-
-        } catch (error) {
-            const status =
-                error?.status ||
-                error?.error?.code ||
-                error?.response?.status;
-
-            console.error(`Ошибка модели ${model}:`, status || error.message);
-
-            if (status === 429 || status === 503) {
-                continue;
+`
             }
+        });
 
-            return res.status(500).json({
-                reply: "Ошибка Gemini API."
-            });
-        }
+        console.log("Gemini ответил успешно");
+
+        return res.status(200).json({
+            reply: response.text,
+            model: "gemini-3.8-flash"
+        });
+
+    } catch (error) {
+        console.error("GEMINI ERROR:", error);
+
+        return res.status(500).json({
+            reply: "Ошибка Gemini API. Посмотри Runtime Logs в Vercel."
+        });
     }
-
-    return res.status(503).json({
-        reply: "Gemini сейчас временно недоступен. Попробуй ещё раз."
-    });
 };
