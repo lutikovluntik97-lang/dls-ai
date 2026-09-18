@@ -1,5 +1,5 @@
 /* =========================================
-   DLS AI - MAIN JAVASCRIPT
+   DLS AI — MAIN JAVASCRIPT
 ========================================= */
 
 let currentLanguage = localStorage.getItem("dlsLanguage") || "ru";
@@ -26,7 +26,6 @@ const translations = {
         "nav.logout": "Выйти",
 
         "language.title": "Язык",
-
         "status.online": "Система онлайн",
 
         "home.eyebrow": "Добро пожаловать",
@@ -489,7 +488,6 @@ const students = {
         ["Ақсақалов Алисұлтан", "8", "BJJ"],
         ["Комбатуров Жангир", "8", "Judo"]
     ]
-
 };
 
 
@@ -498,74 +496,67 @@ const students = {
 ========================================= */
 
 function escapeHTML(text) {
-
     const div = document.createElement("div");
-
     div.textContent = text;
-
     return div.innerHTML;
 }
 
 
 /* =========================================
-   APPLY TRANSLATIONS
+   TRANSLATIONS
 ========================================= */
 
 function applyTranslations() {
 
-    document.documentElement.lang = currentLanguage === "kk"
-        ? "kk"
-        : currentLanguage;
+    document.documentElement.lang =
+        currentLanguage === "kk"
+            ? "kk"
+            : currentLanguage;
 
     document.querySelectorAll("[data-i18n]").forEach(element => {
 
         const key = element.getAttribute("data-i18n");
-
-        const value =
-            translations[currentLanguage]?.[key];
+        const value = translations[currentLanguage]?.[key];
 
         if (value !== undefined) {
             element.textContent = value;
         }
-
     });
 
     document.querySelectorAll("[data-i18n-placeholder]").forEach(element => {
 
-        const key =
-            element.getAttribute("data-i18n-placeholder");
-
-        const value =
-            translations[currentLanguage]?.[key];
+        const key = element.getAttribute("data-i18n-placeholder");
+        const value = translations[currentLanguage]?.[key];
 
         if (value !== undefined) {
             element.placeholder = value;
         }
-
     });
 
-    const page = document.querySelector(".page:not(.hidden)");
+    updatePageName();
+}
 
-    if (page) {
-        const pageName = document.getElementById("pageName");
 
-        if (pageName) {
-            pageName.textContent =
-                pageNames[currentLanguage][page.id] ||
-                page.id;
-        }
+function updatePageName() {
+
+    const visiblePage =
+        document.querySelector(".page:not(.hidden)");
+
+    const pageName =
+        document.getElementById("pageName");
+
+    if (!visiblePage || !pageName) {
+        return;
     }
 
-    document.title = currentLanguage === "en"
-        ? "DLS AI — Divergents Leadership School"
-        : currentLanguage === "kk"
-            ? "DLS AI — Divergents Leadership School"
-            : "DLS AI — Divergents Leadership School";
+    pageName.textContent =
+        pageNames[currentLanguage][visiblePage.id] ||
+        visiblePage.id;
 }
 
 
 /* =========================================
-   GLOBAL LANGUAGE
+   LANGUAGE
 ========================================= */
 
 function setLanguage(language) {
@@ -578,20 +569,19 @@ function setLanguage(language) {
 
     localStorage.setItem(
         "dlsLanguage",
-        currentLanguage
+        language
     );
 
     document.querySelectorAll(".language-btn").forEach(button => {
 
         button.classList.toggle(
             "active",
-            button.dataset.lang === currentLanguage
+            button.dataset.lang === language
         );
 
     });
 
     applyTranslations();
-
     updateAIWelcome();
 }
 
@@ -621,16 +611,22 @@ function setAILanguage(language) {
 
 function showPage(id, button = null) {
 
+    console.log("DLS navigation:", id);
+
+    const target =
+        document.getElementById(id);
+
+    if (!target) {
+        console.error(
+            "DLS: page not found:",
+            id
+        );
+        return;
+    }
+
     document.querySelectorAll(".page").forEach(page => {
         page.classList.add("hidden");
     });
-
-    const target = document.getElementById(id);
-
-    if (!target) {
-        console.error("Страница не найдена:", id);
-        return;
-    }
 
     target.classList.remove("hidden");
 
@@ -642,36 +638,17 @@ function showPage(id, button = null) {
         button.classList.add("active");
     } else {
 
-        document.querySelectorAll(".nav-item").forEach(item => {
+        const navButton =
+            document.querySelector(
+                `.nav-item[onclick*="'${id}'"]`
+            );
 
-            const clickText =
-                item.querySelector("[data-i18n]");
-
-            if (clickText) {
-
-                const key =
-                    clickText.getAttribute("data-i18n");
-
-                if (
-                    pageNames[currentLanguage][id] ===
-                    translations[currentLanguage][key]
-                ) {
-                    item.classList.add("active");
-                }
-
-            }
-
-        });
-
+        if (navButton) {
+            navButton.classList.add("active");
+        }
     }
 
-    const pageName =
-        document.getElementById("pageName");
-
-    if (pageName) {
-        pageName.textContent =
-            pageNames[currentLanguage][id] || id;
-    }
+    updatePageName();
 
     window.scrollTo({
         top: 0,
@@ -692,33 +669,32 @@ function openAI() {
 
     showPage("ai");
 
+    const aiButton =
+        document.querySelector(
+            `.nav-item[onclick*="'ai'"]`
+        );
+
     document.querySelectorAll(".nav-item").forEach(item => {
-
         item.classList.remove("active");
-
-        const label =
-            item.querySelector("[data-i18n]");
-
-        if (
-            label &&
-            label.getAttribute("data-i18n") === "nav.ai"
-        ) {
-            item.classList.add("active");
-        }
-
     });
+
+    if (aiButton) {
+        aiButton.classList.add("active");
+    }
 
     const input =
         document.getElementById("question");
 
     if (input) {
-        setTimeout(() => input.focus(), 150);
+        setTimeout(() => {
+            input.focus();
+        }, 150);
     }
 }
 
 
 /* =========================================
-   RENDER STUDENTS
+   STUDENTS
 ========================================= */
 
 function renderStudents() {
@@ -757,14 +733,17 @@ function renderStudents() {
             `;
 
             const listContainer =
-                groupElement.querySelector(".student-list");
+                groupElement.querySelector(
+                    ".student-list"
+                );
 
             list.forEach(student => {
 
                 const element =
                     document.createElement("div");
 
-                element.className = "student-row";
+                element.className =
+                    "student-row";
 
                 element.innerHTML = `
                     <div class="student-avatar">
@@ -788,7 +767,6 @@ function renderStudents() {
                 `;
 
                 listContainer.appendChild(element);
-
             });
 
             container.appendChild(groupElement);
@@ -823,7 +801,6 @@ async function askAI() {
         return;
     }
 
-    // Пользователь
     const userMessage =
         document.createElement("div");
 
@@ -842,7 +819,6 @@ async function askAI() {
         sendButton.disabled = true;
     }
 
-    // AI loading
     const botMessage =
         document.createElement("div");
 
@@ -878,9 +854,7 @@ async function askAI() {
                     message: message,
                     language: aiLanguage
                 })
-
             });
-
 
         let data = {};
 
@@ -890,21 +864,16 @@ async function askAI() {
             data = {};
         }
 
-
         if (!response.ok) {
-
             throw new Error(
                 data.reply ||
                 `Ошибка сервера: ${response.status}`
             );
-
         }
-
 
         const answer =
             data.reply ||
             "AI не вернул ответ.";
-
 
         botMessage.innerHTML = `
             <div class="message-avatar">✦</div>
@@ -914,10 +883,12 @@ async function askAI() {
             </div>
         `;
 
-
     } catch (error) {
 
-        console.error("DLS AI:", error);
+        console.error(
+            "DLS AI:",
+            error
+        );
 
         botMessage.innerHTML = `
             <div class="message-avatar">✦</div>
@@ -942,22 +913,27 @@ async function askAI() {
 
 
 /* =========================================
-   FORMAT AI TEXT
+   AI TEXT
 ========================================= */
 
 function formatAIText(text) {
 
-    const safe =
-        escapeHTML(String(text));
-
-    return safe
-        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-        .replace(/\n/g, "<br>");
+    return escapeHTML(
+        String(text)
+    )
+        .replace(
+            /\*\*(.*?)\*\*/g,
+            "<strong>$1</strong>"
+        )
+        .replace(
+            /\n/g,
+            "<br>"
+        );
 }
 
 
 /* =========================================
-   SUGGESTION
+   SUGGESTIONS
 ========================================= */
 
 function sendSuggestion(text) {
@@ -1019,13 +995,15 @@ function clearChat() {
 
 
 /* =========================================
-   UPDATE AI WELCOME
+   AI WELCOME
 ========================================= */
 
 function updateAIWelcome() {
 
     const welcome =
-        document.querySelector(".welcome-message");
+        document.querySelector(
+            ".welcome-message"
+        );
 
     if (!welcome) {
         return;
@@ -1063,10 +1041,8 @@ function scrollChat() {
     }
 
     requestAnimationFrame(() => {
-
         chat.scrollTop =
             chat.scrollHeight;
-
     });
 }
 
@@ -1079,44 +1055,54 @@ document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        // Язык сайта
-        document.querySelectorAll(".language-btn").forEach(button => {
+        console.log(
+            "🚀 DLS AI frontend loaded"
+        );
 
-            button.classList.toggle(
-                "active",
-                button.dataset.lang === currentLanguage
-            );
-
-        });
-
-        // Переводы
         applyTranslations();
 
-        // Ученики
+        document.querySelectorAll(".language-btn")
+            .forEach(button => {
+
+                button.classList.toggle(
+                    "active",
+                    button.dataset.lang === currentLanguage
+                );
+
+            });
+
+        document.querySelectorAll(".ai-lang")
+            .forEach(button => {
+
+                button.classList.toggle(
+                    "active",
+                    button.dataset.aiLang === aiLanguage
+                );
+
+            });
+
         renderStudents();
 
-        // Неделя
-        document.querySelectorAll(".week").forEach(button => {
+        document.querySelectorAll(".week")
+            .forEach(button => {
 
-            button.addEventListener(
-                "click",
-                () => {
+                button.addEventListener(
+                    "click",
+                    () => {
 
-                    document
-                        .querySelectorAll(".week")
-                        .forEach(item => {
-                            item.classList.remove("active");
-                        });
+                        document
+                            .querySelectorAll(".week")
+                            .forEach(item => {
+                                item.classList.remove("active");
+                            });
 
-                    button.classList.add("active");
+                        button.classList.add("active");
 
-                }
-            );
+                    }
+                );
 
-        });
+            });
 
-
-        // Enter
         const input =
             document.getElementById("question");
 
@@ -1134,33 +1120,23 @@ document.addEventListener(
                         event.preventDefault();
 
                         askAI();
-
                     }
-
                 }
             );
-
 
             input.addEventListener(
                 "input",
                 () => {
 
-                    input.style.height =
-                        "56px";
+                    input.style.height = "56px";
 
                     input.style.height =
                         Math.min(
                             input.scrollHeight,
                             140
                         ) + "px";
-
                 }
             );
-
         }
-
-        console.log(
-            "DLS AI frontend loaded."
-        );
     }
 );
