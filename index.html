@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>DLS AI — Divergents Leadership School</title>
+    <title>DLS AI</title>
 
     <link rel="stylesheet" href="/style.css">
 </head>
@@ -19,111 +20,118 @@
         <div class="brand">
             <div class="brand-logo">DLS</div>
 
-            <div>
-                <div class="brand-title">DLS AI</div>
-                <div class="brand-subtitle">Leadership School</div>
+            <div class="brand-text">
+                <strong>DLS AI</strong>
+                <span>Divergents Leadership School</span>
             </div>
         </div>
 
-        <div class="sidebar-profile">
-            <div class="avatar">А</div>
 
-            <div class="profile-info">
-                <strong>Али Байрамов</strong>
-                <span>7 класс · Core 3</span>
-            </div>
+        <div class="system-status">
+            <span class="status-dot"></span>
+            <span data-i18n="status.online">Система онлайн</span>
         </div>
+
 
         <nav class="navigation">
 
-            <button class="nav-item active" onclick="showPage('home', this)">
+            <button class="nav-item active"
+                    onclick="showPage('home', this)">
                 <span class="nav-icon">⌂</span>
                 <span data-i18n="nav.home">Главная</span>
             </button>
 
-            <button class="nav-item" onclick="showPage('diary', this)">
+            <button class="nav-item"
+                    onclick="showPage('diary', this)">
                 <span class="nav-icon">▣</span>
                 <span data-i18n="nav.diary">Дневник</span>
             </button>
 
-            <button class="nav-item" onclick="showPage('students', this)">
-                <span class="nav-icon">◉</span>
+            <button class="nav-item"
+                    onclick="showPage('students', this)">
+                <span class="nav-icon">♙</span>
                 <span data-i18n="nav.students">Ученики</span>
             </button>
 
-            <button class="nav-item" onclick="showPage('schedule', this)">
-                <span class="nav-icon">▤</span>
+            <button class="nav-item"
+                    onclick="showPage('schedule', this)">
+                <span class="nav-icon">◫</span>
                 <span data-i18n="nav.schedule">Расписание</span>
             </button>
 
-            <button class="nav-item" onclick="showPage('homework', this)">
+            <button class="nav-item"
+                    onclick="showPage('homework', this)">
                 <span class="nav-icon">✓</span>
                 <span data-i18n="nav.homework">Домашнее задание</span>
             </button>
 
-            <button class="nav-item" onclick="showPage('grades', this)">
+            <button class="nav-item"
+                    onclick="showPage('grades', this)">
                 <span class="nav-icon">★</span>
                 <span data-i18n="nav.grades">Оценки</span>
             </button>
 
-            <button class="nav-item" onclick="showPage('ai', this)">
+            <div class="nav-divider"></div>
+
+            <button class="nav-item ai-nav"
+                    onclick="openAI()">
                 <span class="nav-icon">✦</span>
                 <span data-i18n="nav.ai">AI Chat</span>
             </button>
 
-            <button class="nav-item" onclick="showPage('profile', this)">
-                <span class="nav-icon">◌</span>
+            <button class="nav-item"
+                    onclick="showPage('profile', this)">
+                <span class="nav-icon">◉</span>
                 <span data-i18n="nav.profile">Профиль</span>
             </button>
 
-            <button class="nav-item" onclick="showPage('news', this)">
-                <span class="nav-icon">◫</span>
+            <button class="nav-item"
+                    onclick="showPage('news', this)">
+                <span class="nav-icon">◇</span>
                 <span data-i18n="nav.news">Новости</span>
             </button>
 
-            <button class="nav-item" onclick="showPage('achievements', this)">
+            <button class="nav-item"
+                    onclick="showPage('achievements', this)">
                 <span class="nav-icon">◆</span>
                 <span data-i18n="nav.achievements">Достижения</span>
             </button>
 
         </nav>
 
+
         <div class="sidebar-bottom">
 
-            <div class="language-box">
+            <div class="language-title"
+                 data-i18n="language.title">
+                Язык
+            </div>
 
-                <div class="language-label" data-i18n="language.title">
-                    Язык
-                </div>
+            <div class="language-switcher">
 
-                <div class="language-switcher">
-
-                    <button
-                        class="language-btn active"
+                <button class="language-btn active"
                         data-lang="ru"
                         onclick="setLanguage('ru')">
-                        🇷🇺 RU
-                    </button>
+                    RU
+                </button>
 
-                    <button
-                        class="language-btn"
+                <button class="language-btn"
                         data-lang="en"
                         onclick="setLanguage('en')">
-                        🇬🇧 EN
-                    </button>
+                    EN
+                </button>
 
-                    <button
-                        class="language-btn"
+                <button class="language-btn"
                         data-lang="kk"
                         onclick="setLanguage('kk')">
-                        🇰🇿 KZ
-                    </button>
-
-                </div>
+                    KZ
+                </button>
 
             </div>
 
-            <button class="logout-btn">
+
+            <button class="logout-button"
+                    onclick="window.location.href='/login'">
                 <span>↪</span>
                 <span data-i18n="nav.logout">Выйти</span>
             </button>
@@ -138,24 +146,37 @@
 
         <header class="topbar">
 
-            <div>
-                <div class="page-kicker">
-                    DIVERGENTS LEADERSHIP SCHOOL
+            <div class="topbar-left">
+
+                <div class="mobile-logo">
+                    DLS
                 </div>
 
-                <h1 id="pageName">Главная</h1>
+                <div>
+                    <div class="breadcrumb">
+                        DLS AI
+                    </div>
+
+                    <h2 id="pageName">
+                        Главная
+                    </h2>
+                </div>
+
             </div>
+
 
             <div class="topbar-right">
 
-                <div class="status">
+                <div class="topbar-status">
                     <span class="status-dot"></span>
                     <span data-i18n="status.online">
                         Система онлайн
                     </span>
                 </div>
 
-                <div class="mini-avatar">А</div>
+                <div class="avatar">
+                    А
+                </div>
 
             </div>
 
@@ -166,20 +187,21 @@
 
 
             <!-- HOME -->
-
-            <section class="page" id="home">
+            <section id="home"
+                     class="page">
 
                 <div class="hero">
 
                     <div class="hero-content">
 
-                        <span class="eyebrow" data-i18n="home.eyebrow">
+                        <span class="eyebrow"
+                              data-i18n="home.eyebrow">
                             Добро пожаловать
                         </span>
 
-                        <h2 data-i18n="home.title">
+                        <h1 data-i18n="home.title">
                             Добро пожаловать в DLS AI
-                        </h2>
+                        </h1>
 
                         <p data-i18n="home.text">
                             Твоя школьная система для учёбы,
@@ -187,24 +209,25 @@
                             и общения с AI.
                         </p>
 
-                        <button
-                            class="primary-btn"
-                            onclick="openAI()">
-
+                        <button class="primary-button"
+                                onclick="openAI()">
                             <span>✦</span>
-
                             <span data-i18n="home.askAI">
                                 Спросить DLS AI
                             </span>
-
                         </button>
 
                     </div>
 
+
                     <div class="hero-orb">
-                        <div class="orb-inner">
+
+                        <div class="orb-ring ring-one"></div>
+                        <div class="orb-ring ring-two"></div>
+                        <div class="orb-core">
                             DLS
                         </div>
+
                     </div>
 
                 </div>
@@ -213,17 +236,14 @@
                 <div class="section-heading">
 
                     <div>
-
-                        <span
-                            class="section-eyebrow"
-                            data-i18n="home.today">
+                        <span class="eyebrow"
+                              data-i18n="home.today">
                             Сегодня
                         </span>
 
-                        <h3 data-i18n="home.overview">
+                        <h2 data-i18n="home.overview">
                             Обзор дня
-                        </h3>
-
+                        </h2>
                     </div>
 
                 </div>
@@ -232,43 +252,54 @@
                 <div class="stats-grid">
 
                     <div class="stat-card">
-                        <span class="stat-icon">▤</span>
-                        <div class="stat-value">5</div>
-                        <div
-                            class="stat-label"
-                            data-i18n="home.lessons">
+
+                        <div class="stat-icon">◫</div>
+
+                        <span data-i18n="home.lessons">
                             Уроков сегодня
-                        </div>
+                        </span>
+
+                        <strong>4</strong>
+
                     </div>
 
+
                     <div class="stat-card">
-                        <span class="stat-icon">✓</span>
-                        <div class="stat-value">2</div>
-                        <div
-                            class="stat-label"
-                            data-i18n="home.homework">
+
+                        <div class="stat-icon">✓</div>
+
+                        <span data-i18n="home.homework">
                             Домашних задания
-                        </div>
+                        </span>
+
+                        <strong>3</strong>
+
                     </div>
 
+
                     <div class="stat-card">
-                        <span class="stat-icon">★</span>
-                        <div class="stat-value">4.7</div>
-                        <div
-                            class="stat-label"
-                            data-i18n="home.average">
+
+                        <div class="stat-icon">★</div>
+
+                        <span data-i18n="home.average">
                             Средний балл
-                        </div>
+                        </span>
+
+                        <strong>4.7</strong>
+
                     </div>
 
+
                     <div class="stat-card">
-                        <span class="stat-icon">◆</span>
-                        <div class="stat-value">8</div>
-                        <div
-                            class="stat-label"
-                            data-i18n="home.achievements">
+
+                        <div class="stat-icon">◆</div>
+
+                        <span data-i18n="home.achievements">
                             Достижений
-                        </div>
+                        </span>
+
+                        <strong>2</strong>
+
                     </div>
 
                 </div>
@@ -276,154 +307,79 @@
 
                 <div class="dashboard-grid">
 
-                    <div class="panel">
+                    <div class="dashboard-card">
 
-                        <div class="panel-header">
+                        <div class="card-header">
 
                             <div>
-
-                                <span
-                                    class="section-eyebrow"
-                                    data-i18n="home.scheduleLabel">
+                                <span class="eyebrow"
+                                      data-i18n="home.scheduleLabel">
                                     На сегодня
                                 </span>
 
                                 <h3 data-i18n="home.schedule">
                                     Расписание
                                 </h3>
-
                             </div>
 
-                            <button
-                                class="ghost-btn"
-                                onclick="showPage('schedule')"
-                                data-i18n="common.more">
-                                Подробнее
+                            <button onclick="showPage('schedule')">
+                                →
                             </button>
 
                         </div>
 
 
-                        <div class="schedule-list">
+                        <div class="lesson-mini">
+                            <span>09:00</span>
+                            <strong data-i18n="subjects.math">
+                                Математика
+                            </strong>
+                            <small>Каб. 204</small>
+                        </div>
 
-                            <div class="schedule-item">
+                        <div class="lesson-mini">
+                            <span>10:00</span>
+                            <strong data-i18n="subjects.physics">
+                                Физика
+                            </strong>
+                            <small>Каб. 302</small>
+                        </div>
 
-                                <div class="time">
-                                    08:30
-                                </div>
-
-                                <div class="schedule-main">
-
-                                    <strong data-i18n="subjects.math">
-                                        Математика
-                                    </strong>
-
-                                    <span>
-                                        Кабинет 204
-                                    </span>
-
-                                </div>
-
-                                <span class="schedule-tag">
-                                    Core 3
-                                </span>
-
-                            </div>
-
-
-                            <div class="schedule-item">
-
-                                <div class="time">
-                                    09:30
-                                </div>
-
-                                <div class="schedule-main">
-
-                                    <strong data-i18n="subjects.physics">
-                                        Физика
-                                    </strong>
-
-                                    <span>
-                                        Кабинет 108
-                                    </span>
-
-                                </div>
-
-                                <span class="schedule-tag">
-                                    Core 3
-                                </span>
-
-                            </div>
-
-
-                            <div class="schedule-item">
-
-                                <div class="time">
-                                    10:30
-                                </div>
-
-                                <div class="schedule-main">
-
-                                    <strong data-i18n="subjects.english">
-                                        Английский
-                                    </strong>
-
-                                    <span>
-                                        Кабинет 301
-                                    </span>
-
-                                </div>
-
-                                <span class="schedule-tag">
-                                    Core 3
-                                </span>
-
-                            </div>
-
+                        <div class="lesson-mini">
+                            <span>14:00</span>
+                            <strong data-i18n="subjects.english">
+                                Английский
+                            </strong>
+                            <small>Каб. 105</small>
                         </div>
 
                     </div>
 
 
-                    <div class="panel">
+                    <div class="dashboard-card ai-preview">
 
-                        <div class="panel-header">
+                        <div class="ai-symbol">✦</div>
 
-                            <div>
+                        <span class="eyebrow"
+                              data-i18n="home.aiLabel">
+                            DLS AI
+                        </span>
 
-                                <span class="section-eyebrow">
-                                    DLS AI
-                                </span>
+                        <h3 data-i18n="home.aiTitle">
+                            AI-помощник
+                        </h3>
 
-                                <h3 data-i18n="home.aiTitle">
-                                    AI-помощник
-                                </h3>
+                        <p data-i18n="home.aiText">
+                            Задай вопрос по математике,
+                            физике, программированию
+                            или любому школьному предмету.
+                        </p>
 
-                            </div>
-
-                        </div>
-
-
-                        <div class="ai-mini-card">
-
-                            <div class="ai-mini-icon">
-                                ✦
-                            </div>
-
-                            <p data-i18n="home.aiText">
-                                Задай вопрос по математике,
-                                физике, программированию
-                                или любому школьному предмету.
-                            </p>
-
-                            <button
-                                class="secondary-btn"
+                        <button class="secondary-button"
                                 onclick="openAI()"
                                 data-i18n="home.openChat">
-                                Открыть AI Chat
-                            </button>
-
-                        </div>
+                            Открыть AI Chat
+                        </button>
 
                     </div>
 
@@ -433,159 +389,86 @@
 
 
             <!-- DIARY -->
+            <section id="diary"
+                     class="page hidden">
 
-            <section class="page hidden" id="diary">
+                <div class="page-heading">
 
-                <div class="page-title-block">
-
-                    <span
-                        class="section-eyebrow"
-                        data-i18n="diary.kicker">
+                    <span class="eyebrow"
+                          data-i18n="diary.kicker">
                         Личный дневник
                     </span>
 
-                    <h2 data-i18n="diary.title">
+                    <h1 data-i18n="diary.title">
                         Дневник
-                    </h2>
+                    </h1>
 
                     <p data-i18n="diary.text">
-                        Твои уроки, оценки и домашние задания
-                        в одном месте.
+                        Твои уроки, оценки и домашние
+                        задания в одном месте.
                     </p>
 
                 </div>
 
 
-                <div class="date-card">
+                <div class="table-card">
 
-                    <div>
+                    <div class="table-header">
 
-                        <span
-                            class="date-label"
-                            data-i18n="diary.today">
+                        <h3 data-i18n="diary.today">
                             Сегодня
+                        </h3>
+
+                    </div>
+
+
+                    <div class="diary-row">
+
+                        <span>09:00</span>
+
+                        <strong data-i18n="subjects.math">
+                            Математика
+                        </strong>
+
+                        <span class="grade">5</span>
+
+                        <span data-i18n="diary.hw1">
+                            Упражнения 24–26
                         </span>
 
-                        <h3>
-                            Среда, 16 сентября
-                        </h3>
-
                     </div>
 
-                    <div class="date-icon">
-                        16
-                    </div>
 
-                </div>
+                    <div class="diary-row">
 
+                        <span>10:00</span>
 
-                <div class="panel table-panel">
+                        <strong data-i18n="subjects.physics">
+                            Физика
+                        </strong>
 
-                    <div class="panel-header">
+                        <span class="grade">5</span>
 
-                        <h3 data-i18n="diary.lessons">
-                            Уроки
-                        </h3>
+                        <span data-i18n="diary.hw2">
+                            Изучить §12
+                        </span>
 
                     </div>
 
 
-                    <div class="table-wrap">
+                    <div class="diary-row">
 
-                        <table>
+                        <span>14:00</span>
 
-                            <thead>
+                        <strong data-i18n="subjects.english">
+                            Английский
+                        </strong>
 
-                            <tr>
+                        <span class="grade">4</span>
 
-                                <th data-i18n="table.time">
-                                    Время
-                                </th>
-
-                                <th data-i18n="table.subject">
-                                    Предмет
-                                </th>
-
-                                <th data-i18n="table.grade">
-                                    Оценка
-                                </th>
-
-                                <th data-i18n="table.homework">
-                                    Домашнее задание
-                                </th>
-
-                            </tr>
-
-                            </thead>
-
-
-                            <tbody>
-
-                            <tr>
-
-                                <td>08:30</td>
-
-                                <td>
-                                    Математика
-                                </td>
-
-                                <td>
-                                    <span class="grade-badge good">
-                                        5
-                                    </span>
-                                </td>
-
-                                <td data-i18n="diary.hw1">
-                                    Упражнения 24–26
-                                </td>
-
-                            </tr>
-
-
-                            <tr>
-
-                                <td>09:30</td>
-
-                                <td>
-                                    Физика
-                                </td>
-
-                                <td>
-                                    <span class="grade-badge good">
-                                        5
-                                    </span>
-                                </td>
-
-                                <td data-i18n="diary.hw2">
-                                    Изучить §12
-                                </td>
-
-                            </tr>
-
-
-                            <tr>
-
-                                <td>10:30</td>
-
-                                <td>
-                                    Английский
-                                </td>
-
-                                <td>
-                                    <span class="grade-badge average">
-                                        4
-                                    </span>
-                                </td>
-
-                                <td data-i18n="diary.hw3">
-                                    Learn 15 new words
-                                </td>
-
-                            </tr>
-
-                            </tbody>
-
-                        </table>
+                        <span data-i18n="diary.hw3">
+                            Выучить 15 новых слов
+                        </span>
 
                     </div>
 
@@ -595,20 +478,19 @@
 
 
             <!-- STUDENTS -->
+            <section id="students"
+                     class="page hidden">
 
-            <section class="page hidden" id="students">
+                <div class="page-heading">
 
-                <div class="page-title-block">
-
-                    <span
-                        class="section-eyebrow"
-                        data-i18n="students.kicker">
+                    <span class="eyebrow"
+                          data-i18n="students.kicker">
                         Учебные группы
                     </span>
 
-                    <h2 data-i18n="students.title">
+                    <h1 data-i18n="students.title">
                         Ученики
-                    </h2>
+                    </h1>
 
                     <p data-i18n="students.text">
                         Ученики и спортивные направления DLS.
@@ -616,29 +498,28 @@
 
                 </div>
 
-                <div
-                    id="studentsList"
-                    class="students-grid">
+
+                <div id="studentsList"
+                     class="students-grid">
                 </div>
 
             </section>
 
 
             <!-- SCHEDULE -->
+            <section id="schedule"
+                     class="page hidden">
 
-            <section class="page hidden" id="schedule">
+                <div class="page-heading">
 
-                <div class="page-title-block">
-
-                    <span
-                        class="section-eyebrow"
-                        data-i18n="schedule.kicker">
+                    <span class="eyebrow"
+                          data-i18n="schedule.kicker">
                         Учебная неделя
                     </span>
 
-                    <h2 data-i18n="schedule.title">
+                    <h1 data-i18n="schedule.title">
                         Расписание
-                    </h2>
+                    </h1>
 
                     <p data-i18n="schedule.text">
                         Core 3 · 7 класс · BJJ
@@ -649,165 +530,123 @@
 
                 <div class="week-switcher">
 
-                    <button
-                        class="week active"
-                        data-day="mon">
-
-                        <span data-i18n="week.mon">
+                    <button class="week active">
+                        <strong data-i18n="week.mon">
                             Пн
-                        </span>
-
-                        <strong>14</strong>
-
+                        </strong>
+                        <span>21</span>
                     </button>
 
-                    <button
-                        class="week"
-                        data-day="tue">
-
-                        <span data-i18n="week.tue">
+                    <button class="week">
+                        <strong data-i18n="week.tue">
                             Вт
-                        </span>
-
-                        <strong>15</strong>
-
+                        </strong>
+                        <span>22</span>
                     </button>
 
-                    <button
-                        class="week"
-                        data-day="wed">
-
-                        <span data-i18n="week.wed">
+                    <button class="week">
+                        <strong data-i18n="week.wed">
                             Ср
-                        </span>
-
-                        <strong>16</strong>
-
+                        </strong>
+                        <span>23</span>
                     </button>
 
-                    <button
-                        class="week"
-                        data-day="thu">
-
-                        <span data-i18n="week.thu">
+                    <button class="week">
+                        <strong data-i18n="week.thu">
                             Чт
-                        </span>
-
-                        <strong>17</strong>
-
+                        </strong>
+                        <span>24</span>
                     </button>
 
-                    <button
-                        class="week"
-                        data-day="fri">
-
-                        <span data-i18n="week.fri">
+                    <button class="week">
+                        <strong data-i18n="week.fri">
                             Пт
-                        </span>
-
-                        <strong>18</strong>
-
+                        </strong>
+                        <span>25</span>
                     </button>
 
                 </div>
 
 
-                <div class="schedule-large panel">
+                <div class="schedule-list">
 
-                    <div class="schedule-row header">
-
-                        <span data-i18n="table.time">
-                            Время
-                        </span>
-
-                        <span data-i18n="table.subject">
-                            Предмет
-                        </span>
-
-                        <span data-i18n="schedule.teacher">
-                            Преподаватель
-                        </span>
-
-                        <span data-i18n="schedule.room">
-                            Кабинет
-                        </span>
-
+                    <div class="schedule-row">
+                        <span>09:00</span>
+                        <div>
+                            <strong data-i18n="subjects.math">
+                                Математика
+                            </strong>
+                            <small>
+                                <span data-i18n="schedule.teacher">
+                                    Преподаватель
+                                </span>
+                                ·
+                                <span data-i18n="schedule.room">
+                                    Кабинет
+                                </span>
+                                204
+                            </small>
+                        </div>
                     </div>
 
 
                     <div class="schedule-row">
-
-                        <span>08:30</span>
-
-                        <strong data-i18n="subjects.math">
-                            Математика
-                        </strong>
-
-                        <span>
-                            Mr. Ayan
-                        </span>
-
-                        <span>
-                            204
-                        </span>
-
+                        <span>10:00</span>
+                        <div>
+                            <strong data-i18n="subjects.physics">
+                                Физика
+                            </strong>
+                            <small>
+                                <span data-i18n="schedule.teacher">
+                                    Преподаватель
+                                </span>
+                                ·
+                                <span data-i18n="schedule.room">
+                                    Кабинет
+                                </span>
+                                302
+                            </small>
+                        </div>
                     </div>
 
 
                     <div class="schedule-row">
-
-                        <span>09:30</span>
-
-                        <strong data-i18n="subjects.physics">
-                            Физика
-                        </strong>
-
-                        <span>
-                            Ms. Amina
-                        </span>
-
-                        <span>
-                            108
-                        </span>
-
+                        <span>14:00</span>
+                        <div>
+                            <strong data-i18n="subjects.english">
+                                Английский
+                            </strong>
+                            <small>
+                                <span data-i18n="schedule.teacher">
+                                    Преподаватель
+                                </span>
+                                ·
+                                <span data-i18n="schedule.room">
+                                    Кабинет
+                                </span>
+                                105
+                            </small>
+                        </div>
                     </div>
 
 
                     <div class="schedule-row">
-
-                        <span>10:30</span>
-
-                        <strong data-i18n="subjects.english">
-                            Английский
-                        </strong>
-
-                        <span>
-                            Mr. Daniel
-                        </span>
-
-                        <span>
-                            301
-                        </span>
-
-                    </div>
-
-
-                    <div class="schedule-row">
-
-                        <span>11:30</span>
-
-                        <strong data-i18n="subjects.informatics">
-                            Информатика
-                        </strong>
-
-                        <span>
-                            Mr. Timur
-                        </span>
-
-                        <span>
-                            212
-                        </span>
-
+                        <span>16:00</span>
+                        <div>
+                            <strong data-i18n="subjects.informatics">
+                                Информатика
+                            </strong>
+                            <small>
+                                <span data-i18n="schedule.teacher">
+                                    Преподаватель
+                                </span>
+                                ·
+                                <span data-i18n="schedule.room">
+                                    Кабинет
+                                </span>
+                                401
+                            </small>
+                        </div>
                     </div>
 
                 </div>
@@ -816,20 +655,19 @@
 
 
             <!-- HOMEWORK -->
+            <section id="homework"
+                     class="page hidden">
 
-            <section class="page hidden" id="homework">
+                <div class="page-heading">
 
-                <div class="page-title-block">
-
-                    <span
-                        class="section-eyebrow"
-                        data-i18n="homework.kicker">
+                    <span class="eyebrow"
+                          data-i18n="homework.kicker">
                         Учебные задачи
                     </span>
 
-                    <h2 data-i18n="homework.title">
+                    <h1 data-i18n="homework.title">
                         Домашнее задание
-                    </h2>
+                    </h1>
 
                     <p data-i18n="homework.text">
                         Не забудь выполнить задания
@@ -843,88 +681,70 @@
 
                     <div class="homework-card">
 
-                        <div class="homework-check">
-                            <input type="checkbox">
+                        <div class="task-number">
+                            01
                         </div>
 
-                        <div class="homework-content">
-
-                            <span class="homework-subject math">
-                                Математика
-                            </span>
+                        <div class="task-content">
 
                             <h3 data-i18n="homework.task1">
                                 Решить упражнения 24–26
                             </h3>
 
-                            <p data-i18n="homework.due1">
+                            <span data-i18n="homework.due1">
                                 До завтра
-                            </p>
+                            </span>
 
                         </div>
 
-                        <div class="homework-arrow">
-                            →
-                        </div>
+                        <button>○</button>
 
                     </div>
 
 
                     <div class="homework-card">
 
-                        <div class="homework-check">
-                            <input type="checkbox">
+                        <div class="task-number">
+                            02
                         </div>
 
-                        <div class="homework-content">
-
-                            <span class="homework-subject physics">
-                                Физика
-                            </span>
+                        <div class="task-content">
 
                             <h3 data-i18n="homework.task2">
-                                Прочитать §12 и ответить
-                                на вопросы
+                                Прочитать §12
+                                и ответить на вопросы
                             </h3>
 
-                            <p data-i18n="homework.due2">
+                            <span data-i18n="homework.due2">
                                 До завтра
-                            </p>
+                            </span>
 
                         </div>
 
-                        <div class="homework-arrow">
-                            →
-                        </div>
+                        <button>○</button>
 
                     </div>
 
 
                     <div class="homework-card">
 
-                        <div class="homework-check">
-                            <input type="checkbox">
+                        <div class="task-number">
+                            03
                         </div>
 
-                        <div class="homework-content">
-
-                            <span class="homework-subject english">
-                                English
-                            </span>
+                        <div class="task-content">
 
                             <h3 data-i18n="homework.task3">
                                 Выучить 15 новых слов
                             </h3>
 
-                            <p data-i18n="homework.due3">
+                            <span data-i18n="homework.due3">
                                 До пятницы
-                            </p>
+                            </span>
 
                         </div>
 
-                        <div class="homework-arrow">
-                            →
-                        </div>
+                        <button>○</button>
 
                     </div>
 
@@ -934,20 +754,19 @@
 
 
             <!-- GRADES -->
+            <section id="grades"
+                     class="page hidden">
 
-            <section class="page hidden" id="grades">
+                <div class="page-heading">
 
-                <div class="page-title-block">
-
-                    <span
-                        class="section-eyebrow"
-                        data-i18n="grades.kicker">
+                    <span class="eyebrow"
+                          data-i18n="grades.kicker">
                         Успеваемость
                     </span>
 
-                    <h2 data-i18n="grades.title">
+                    <h1 data-i18n="grades.title">
                         Оценки
-                    </h2>
+                    </h1>
 
                     <p data-i18n="grades.text">
                         Твои текущие оценки
@@ -957,92 +776,104 @@
                 </div>
 
 
-                <div class="grade-summary">
+                <div class="grade-overview">
 
-                    <div class="big-grade">
+                    <div class="grade-big">
 
                         <span data-i18n="grades.average">
                             Средний балл
                         </span>
 
-                        <strong>
-                            4.7
-                        </strong>
+                        <strong>4.7</strong>
 
                     </div>
 
-
                     <div class="grade-progress">
 
-                        <div class="progress-track">
-                            <div class="progress-value"></div>
+                        <div class="progress-top">
+                            <span data-i18n="grades.progress">
+                                Отличная успеваемость
+                            </span>
+
+                            <strong>94%</strong>
                         </div>
 
-                        <span data-i18n="grades.progress">
-                            Отличная успеваемость
-                        </span>
+                        <div class="progress-bar">
+                            <div style="width:94%"></div>
+                        </div>
 
                     </div>
 
                 </div>
 
 
-                <div class="panel table-panel">
+                <div class="table-card">
 
-                    <div class="table-wrap">
+                    <div class="grade-table-row table-title">
 
-                        <table>
+                        <span data-i18n="table.subject">
+                            Предмет
+                        </span>
 
-                            <thead>
+                        <span data-i18n="table.grades">
+                            Оценки
+                        </span>
 
-                            <tr>
+                        <span data-i18n="table.average">
+                            Средний
+                        </span>
 
-                                <th data-i18n="table.subject">
-                                    Предмет
-                                </th>
-
-                                <th data-i18n="table.grades">
-                                    Оценки
-                                </th>
-
-                                <th data-i18n="table.average">
-                                    Средний
-                                </th>
-
-                            </tr>
-
-                            </thead>
+                    </div>
 
 
-                            <tbody>
+                    <div class="grade-table-row">
 
-                            <tr>
-                                <td>Математика</td>
-                                <td>5 · 5 · 4 · 5</td>
-                                <td>4.8</td>
-                            </tr>
+                        <strong data-i18n="subjects.math">
+                            Математика
+                        </strong>
 
-                            <tr>
-                                <td>Физика</td>
-                                <td>5 · 4 · 5</td>
-                                <td>4.7</td>
-                            </tr>
+                        <span>5 · 5 · 4 · 5</span>
 
-                            <tr>
-                                <td>Английский</td>
-                                <td>4 · 5 · 4 · 5</td>
-                                <td>4.5</td>
-                            </tr>
+                        <strong>4.8</strong>
 
-                            <tr>
-                                <td>Информатика</td>
-                                <td>5 · 5 · 5</td>
-                                <td>5.0</td>
-                            </tr>
+                    </div>
 
-                            </tbody>
 
-                        </table>
+                    <div class="grade-table-row">
+
+                        <strong data-i18n="subjects.physics">
+                            Физика
+                        </strong>
+
+                        <span>5 · 5 · 5</span>
+
+                        <strong>5.0</strong>
+
+                    </div>
+
+
+                    <div class="grade-table-row">
+
+                        <strong data-i18n="subjects.english">
+                            Английский
+                        </strong>
+
+                        <span>4 · 5 · 4 · 5</span>
+
+                        <strong>4.5</strong>
+
+                    </div>
+
+
+                    <div class="grade-table-row">
+
+                        <strong data-i18n="subjects.informatics">
+                            Информатика
+                        </strong>
+
+                        <span>5 · 5 · 5</span>
+
+                        <strong>5.0</strong>
 
                     </div>
 
@@ -1052,38 +883,44 @@
 
 
             <!-- AI -->
+            <section id="ai"
+                     class="page hidden">
 
-            <section class="page hidden" id="ai">
+                <div class="page-heading ai-heading">
 
-                <div class="ai-page">
+                    <span class="eyebrow">
+                        DLS AI
+                    </span>
 
-                    <div class="ai-header">
+                    <h1 data-i18n="ai.title">
+                        AI-помощник
+                    </h1>
+
+                    <p data-i18n="ai.subtitle">
+                        Задавай вопросы на русском,
+                        английском или казахском.
+                    </p>
+
+                </div>
+
+
+                <div class="ai-panel">
+
+                    <div class="ai-panel-header">
 
                         <div>
 
-                            <span class="section-eyebrow">
+                            <div class="ai-online">
+                                <span class="status-dot"></span>
                                 DLS AI
-                            </span>
-
-                            <h2 data-i18n="ai.title">
-                                AI-помощник
-                            </h2>
-
-                            <p data-i18n="ai.subtitle">
-                                Задавай вопросы на русском,
-                                английском или казахском.
-                            </p>
+                            </div>
 
                         </div>
 
-
-                        <button
-                            class="new-chat-btn"
-                            onclick="clearChat()"
-                            data-i18n="ai.newChat">
-
+                        <button class="clear-chat"
+                                onclick="clearChat()"
+                                data-i18n="ai.newChat">
                             + Новый чат
-
                         </button>
 
                     </div>
@@ -1095,44 +932,35 @@
                             Язык ответа:
                         </span>
 
-                        <div class="ai-language-buttons">
-
-                            <button
-                                class="ai-lang active"
+                        <button class="ai-lang active"
                                 data-ai-lang="auto"
                                 onclick="setAILanguage('auto')">
-                                AUTO
-                            </button>
+                            Auto
+                        </button>
 
-                            <button
-                                class="ai-lang"
+                        <button class="ai-lang"
                                 data-ai-lang="ru"
                                 onclick="setAILanguage('ru')">
-                                🇷🇺 RU
-                            </button>
+                            RU
+                        </button>
 
-                            <button
-                                class="ai-lang"
+                        <button class="ai-lang"
                                 data-ai-lang="en"
                                 onclick="setAILanguage('en')">
-                                🇬🇧 EN
-                            </button>
+                            EN
+                        </button>
 
-                            <button
-                                class="ai-lang"
+                        <button class="ai-lang"
                                 data-ai-lang="kk"
                                 onclick="setAILanguage('kk')">
-                                🇰🇿 KZ
-                            </button>
-
-                        </div>
+                            KZ
+                        </button>
 
                     </div>
 
 
-                    <div
-                        class="chat panel"
-                        id="chat">
+                    <div id="chat"
+                         class="chat">
 
                         <div class="bot-msg welcome-message">
 
@@ -1163,58 +991,51 @@
 
                     <div class="suggestions">
 
-                        <button
-                            onclick="sendSuggestion('Объясни мне эту тему по математике')"
-                            data-i18n="suggestion.math">
+                        <button onclick="sendSuggestion('Помоги мне с математикой')"
+                                data-i18n="suggestion.math">
                             📘 Помоги с математикой
                         </button>
 
-                        <button
-                            onclick="sendSuggestion('Помоги мне решить задачу по физике')"
-                            data-i18n="suggestion.physics">
+                        <button onclick="sendSuggestion('Объясни мне физику')"
+                                data-i18n="suggestion.physics">
                             ⚡ Помоги с физикой
                         </button>
 
-                        <button
-                            onclick="sendSuggestion('Объясни мне JavaScript простыми словами')"
-                            data-i18n="suggestion.code">
+                        <button onclick="sendSuggestion('Объясни JavaScript простыми словами')"
+                                data-i18n="suggestion.code">
                             💻 Объясни программирование
                         </button>
 
-                        <button
-                            onclick="sendSuggestion('Help me with English')"
-                            data-i18n="suggestion.english">
+                        <button onclick="sendSuggestion('Помоги мне с английским')"
+                                data-i18n="suggestion.english">
                             🇬🇧 Помоги с английским
                         </button>
 
                     </div>
 
 
-                    <div class="chat-input-wrap">
+                    <div class="ai-input-area">
 
-                        <textarea
-                            id="question"
-                            rows="1"
-                            placeholder="Напиши вопрос..."
-                            data-i18n-placeholder="ai.placeholder">
-                        </textarea>
+                        <textarea id="question"
+                                  data-i18n-placeholder="ai.placeholder"
+                                  placeholder="Напиши вопрос..."
+                                  rows="1"></textarea>
 
-                        <button
-                            id="sendAI"
-                            class="send-btn"
-                            onclick="askAI()"
-                            aria-label="Send">
+                        <button id="sendAI"
+                                class="send-button"
+                                onclick="askAI()">
                             ↑
                         </button>
 
                     </div>
 
 
-                    <div
-                        class="ai-note"
-                        data-i18n="ai.note">
-                        DLS AI может допускать ошибки.
-                        Проверяй важную информацию.
+                    <div class="ai-note">
+                        <span>ⓘ</span>
+                        <span data-i18n="ai.note">
+                            DLS AI может допускать ошибки.
+                            Проверяй важную информацию.
+                        </span>
                     </div>
 
                 </div>
@@ -1223,109 +1044,83 @@
 
 
             <!-- PROFILE -->
+            <section id="profile"
+                     class="page hidden">
 
-            <section class="page hidden" id="profile">
+                <div class="page-heading">
 
-                <div class="page-title-block">
-
-                    <span
-                        class="section-eyebrow"
-                        data-i18n="profile.kicker">
+                    <span class="eyebrow"
+                          data-i18n="profile.kicker">
                         Личный кабинет
                     </span>
 
-                    <h2 data-i18n="profile.title">
+                    <h1 data-i18n="profile.title">
                         Профиль
-                    </h2>
+                    </h1>
 
                 </div>
 
 
-                <div class="profile-card panel">
+                <div class="profile-card">
 
-                    <div class="profile-avatar-large">
+                    <div class="profile-avatar">
                         А
                     </div>
 
                     <div class="profile-main">
 
-                        <h3>
+                        <h2>
                             Али Байрамов
-                        </h3>
+                        </h2>
 
-                        <span data-i18n="profile.student">
-                            Ученик
+                        <span>
+                            DLS Student
                         </span>
-
-                        <div class="profile-tags">
-
-                            <span>
-                                7 класс
-                            </span>
-
-                            <span>
-                                Core 3
-                            </span>
-
-                            <span>
-                                BJJ
-                            </span>
-
-                        </div>
 
                     </div>
 
                 </div>
 
 
-                <div class="info-grid">
+                <div class="profile-grid">
 
                     <div class="info-card">
+                        <span data-i18n="profile.student">
+                            Ученик
+                        </span>
+                        <strong>
+                            Али Байрамов
+                        </strong>
+                    </div>
 
+                    <div class="info-card">
                         <span data-i18n="profile.class">
                             Класс
                         </span>
-
-                        <strong>
-                            7
-                        </strong>
-
+                        <strong>7</strong>
                     </div>
 
                     <div class="info-card">
-
                         <span data-i18n="profile.group">
                             Группа
                         </span>
-
-                        <strong>
-                            Core 3
-                        </strong>
-
+                        <strong>Core 3</strong>
                     </div>
 
                     <div class="info-card">
-
                         <span data-i18n="profile.direction">
                             Направление
                         </span>
-
-                        <strong>
-                            BJJ
-                        </strong>
-
+                        <strong>BJJ</strong>
                     </div>
 
                     <div class="info-card">
-
                         <span data-i18n="profile.status">
                             Статус
                         </span>
-
                         <strong data-i18n="profile.active">
                             Активен
                         </strong>
-
                     </div>
 
                 </div>
@@ -1334,20 +1129,19 @@
 
 
             <!-- NEWS -->
+            <section id="news"
+                     class="page hidden">
 
-            <section class="page hidden" id="news">
+                <div class="page-heading">
 
-                <div class="page-title-block">
-
-                    <span
-                        class="section-eyebrow"
-                        data-i18n="news.kicker">
+                    <span class="eyebrow"
+                          data-i18n="news.kicker">
                         DLS
                     </span>
 
-                    <h2 data-i18n="news.title">
+                    <h1 data-i18n="news.title">
                         Новости
-                    </h2>
+                    </h1>
 
                     <p data-i18n="news.text">
                         Последние новости школы.
@@ -1358,10 +1152,10 @@
 
                 <div class="news-grid">
 
-                    <article class="news-card panel">
+                    <article class="news-card">
 
                         <span class="news-date">
-                            16.09.2026
+                            DLS
                         </span>
 
                         <h3 data-i18n="news.item1.title">
@@ -1376,10 +1170,10 @@
                     </article>
 
 
-                    <article class="news-card panel">
+                    <article class="news-card">
 
                         <span class="news-date">
-                            12.09.2026
+                            AI
                         </span>
 
                         <h3 data-i18n="news.item2.title">
@@ -1394,10 +1188,10 @@
                     </article>
 
 
-                    <article class="news-card panel">
+                    <article class="news-card">
 
                         <span class="news-date">
-                            05.09.2026
+                            SPORT
                         </span>
 
                         <h3 data-i18n="news.item3.title">
@@ -1416,20 +1210,19 @@
 
 
             <!-- ACHIEVEMENTS -->
+            <section id="achievements"
+                     class="page hidden">
 
-            <section class="page hidden" id="achievements">
+                <div class="page-heading">
 
-                <div class="page-title-block">
-
-                    <span
-                        class="section-eyebrow"
-                        data-i18n="achievements.kicker">
+                    <span class="eyebrow"
+                          data-i18n="achievements.kicker">
                         Твои результаты
                     </span>
 
-                    <h2 data-i18n="achievements.title">
+                    <h1 data-i18n="achievements.title">
                         Достижения
-                    </h2>
+                    </h1>
 
                     <p data-i18n="achievements.text">
                         Следи за своими успехами.
@@ -1440,7 +1233,7 @@
 
                 <div class="achievements-grid">
 
-                    <div class="achievement-card panel unlocked">
+                    <div class="achievement-card">
 
                         <div class="achievement-icon">
                             ★
@@ -1457,7 +1250,7 @@
                     </div>
 
 
-                    <div class="achievement-card panel unlocked">
+                    <div class="achievement-card">
 
                         <div class="achievement-icon">
                             ✦
@@ -1474,10 +1267,10 @@
                     </div>
 
 
-                    <div class="achievement-card panel">
+                    <div class="achievement-card locked">
 
                         <div class="achievement-icon">
-                            ◆
+                            ◇
                         </div>
 
                         <h3 data-i18n="achievement.goal.title">
@@ -1501,8 +1294,9 @@
 </div>
 
 
-<!-- ВАЖНО: новый файл JavaScript -->
+<!-- IMPORTANT: THIS MUST BE THE LAST SCRIPT -->
 <script src="/script.js"></script>
 
 </body>
 </html>
+```
