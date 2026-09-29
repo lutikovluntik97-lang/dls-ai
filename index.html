@@ -1,1303 +1,306 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>DLS AI</title>
-
-    <link rel="stylesheet" href="/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DLS AI — Divergents Leadership School</title>
+<meta name="description" content="Цифровая платформа Divergents Leadership School: дневник, расписание, оценки и AI-помощник.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+
+<div class="overlay" id="overlay"></div>
 
 <div class="app">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">DLS</div>
+      <div class="brand-text">
+        <strong>DLS AI</strong>
+        <span>Divergents Leadership School</span>
+      </div>
+    </div>
 
-        <div class="brand">
-            <div class="brand-logo">DLS</div>
+    <nav class="nav">
+      <button class="nav-item active" data-page="dashboard" onclick="showPage('dashboard')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/></svg>
+        <span data-i18n="nav.dashboard">Главная</span>
+      </button>
+      <button class="nav-item" data-page="diary" onclick="showPage('diary')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+        <span data-i18n="nav.diary">Дневник</span>
+      </button>
+      <button class="nav-item" data-page="students" onclick="showPage('students')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="8.5" r="2.4"/><path d="M16 14.2c2.9.3 5 2.3 5 5.3"/></svg>
+        <span data-i18n="nav.students">Ученики</span>
+      </button>
+      <button class="nav-item" data-page="schedule" onclick="showPage('schedule')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 3v3M16 3v3"/></svg>
+        <span data-i18n="nav.schedule">Расписание</span>
+      </button>
+      <button class="nav-item" data-page="homework" onclick="showPage('homework')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5M9 13l2 2 4-4"/></svg>
+        <span data-i18n="nav.homework">Домашнее задание</span>
+      </button>
+      <button class="nav-item" data-page="grades" onclick="showPage('grades')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V10M10 19V4M16 19v-7M4 19h16"/></svg>
+        <span data-i18n="nav.grades">Оценки</span>
+      </button>
+      <button class="nav-item" data-page="ai" onclick="showPage('ai')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="13" rx="3"/><path d="M9 20h6M12 17v3M8.5 10.5h.01M15.5 10.5h.01"/></svg>
+        <span data-i18n="nav.ai">AI Chat</span>
+      </button>
+      <button class="nav-item" data-page="profile" onclick="showPage('profile')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-4.1 3.4-7 7.5-7s7.5 2.9 7.5 7"/></svg>
+        <span data-i18n="nav.profile">Профиль</span>
+      </button>
+      <button class="nav-item" data-page="news" onclick="showPage('news')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+        <span data-i18n="nav.news">Новости</span>
+      </button>
+      <button class="nav-item" data-page="achievements" onclick="showPage('achievements')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5 7 21l5-2.5L17 21l-1.5-8.5"/></svg>
+        <span data-i18n="nav.achievements">Достижения</span>
+      </button>
 
-            <div class="brand-text">
-                <strong>DLS AI</strong>
-                <span>Divergents Leadership School</span>
-            </div>
+      <div class="nav-divider"></div>
+      <button class="nav-item nav-logout" onclick="logout()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+        <span data-i18n="nav.logout">Выйти</span>
+      </button>
+    </nav>
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-title">
+        <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <h1 id="pageTitle" data-i18n="nav.dashboard">Главная</h1>
+      </div>
+      <div class="topbar-actions">
+        <div class="lang-switch" id="langSwitch">
+          <button data-lang="ru" onclick="setLang('ru')">RU</button>
+          <button data-lang="en" onclick="setLang('en')">EN</button>
+          <button data-lang="kz" onclick="setLang('kz')">KZ</button>
+        </div>
+        <div class="avatar-chip">
+          <div class="av">АБ</div>
+          <div>
+            <strong>Али Байрамов</strong>
+            <small data-i18n="profile.coreLabel">7 класс · Core 3</small>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- ============ DASHBOARD ============ -->
+      <section class="page active" id="page-dashboard">
+        <h2 class="hello"><span data-i18n="dash.hello">Добрый день, Али</span> 👋</h2>
+        <p class="hello-sub" data-i18n="dash.sub">Вот что происходит сегодня в DLS.</p>
+
+        <div class="grid grid-4">
+          <div class="card">
+            <div class="stat-icon violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18"/></svg></div>
+            <div class="stat-value" id="statToday">3</div>
+            <div class="stat-label" data-i18n="dash.statToday">Уроков сегодня</div>
+          </div>
+          <div class="card">
+            <div class="stat-icon gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/></svg></div>
+            <div class="stat-value" id="statHw">2</div>
+            <div class="stat-label" data-i18n="dash.statHw">Активных заданий</div>
+          </div>
+          <div class="card">
+            <div class="stat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V10M10 19V4M16 19v-7M4 19h16"/></svg></div>
+            <div class="stat-value" id="statAvg">4.7</div>
+            <div class="stat-label" data-i18n="dash.statAvg">Средняя оценка</div>
+          </div>
+          <div class="card">
+            <div class="stat-icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5 7 21l5-2.5L17 21l-1.5-8.5"/></svg></div>
+            <div class="stat-value">6</div>
+            <div class="stat-label" data-i18n="dash.statAch">Достижений</div>
+          </div>
         </div>
 
-        <div class="system-status">
-            <span class="status-dot"></span>
-            <span data-i18n="status.online">Система онлайн</span>
+        <div class="dash-grid">
+          <div class="card">
+            <div class="card-title"><span data-i18n="dash.nextLessons">Ближайшие уроки</span></div>
+            <div id="dashLessons"></div>
+          </div>
+          <div class="card ai-panel">
+            <div class="card-title"><span data-i18n="dash.aiTitle">🤖 AI-помощник</span></div>
+            <p style="color:var(--fog);font-size:13px;margin:0 0 6px" data-i18n="dash.aiSub">Спроси что угодно об учёбе — объясню, помогу, переведу.</p>
+            <div class="ai-suggest-row">
+              <button class="chip-btn" onclick="goToAiWith('dash.q1')" data-i18n="dash.q1">Объясни тему</button>
+              <button class="chip-btn" onclick="goToAiWith('dash.q2')" data-i18n="dash.q2">Помоги с домашним заданием</button>
+              <button class="chip-btn" onclick="goToAiWith('dash.q3')" data-i18n="dash.q3">Переведи текст</button>
+            </div>
+            <button class="btn btn-primary" style="margin-top:14px;width:100%" onclick="showPage('ai')" data-i18n="dash.aiOpen">Открыть AI Chat</button>
+          </div>
         </div>
 
-        <nav class="navigation">
-
-            <button class="nav-item active"
-                    onclick="showPage('home', this)">
-                <span class="nav-icon">⌂</span>
-                <span data-i18n="nav.home">Главная</span>
-            </button>
-
-            <button class="nav-item"
-                    onclick="showPage('diary', this)">
-                <span class="nav-icon">▣</span>
-                <span data-i18n="nav.diary">Дневник</span>
-            </button>
-
-            <button class="nav-item"
-                    onclick="showPage('students', this)">
-                <span class="nav-icon">♙</span>
-                <span data-i18n="nav.students">Ученики</span>
-            </button>
-
-            <button class="nav-item"
-                    onclick="showPage('schedule', this)">
-                <span class="nav-icon">◫</span>
-                <span data-i18n="nav.schedule">Расписание</span>
-            </button>
-
-            <button class="nav-item"
-                    onclick="showPage('homework', this)">
-                <span class="nav-icon">✓</span>
-                <span data-i18n="nav.homework">Домашнее задание</span>
-            </button>
-
-            <button class="nav-item"
-                    onclick="showPage('grades', this)">
-                <span class="nav-icon">★</span>
-                <span data-i18n="nav.grades">Оценки</span>
-            </button>
-
-            <div class="nav-divider"></div>
-
-            <button class="nav-item ai-nav"
-                    onclick="openAI()">
-                <span class="nav-icon">✦</span>
-                <span data-i18n="nav.ai">AI Chat</span>
-            </button>
-
-            <button class="nav-item"
-                    onclick="showPage('profile', this)">
-                <span class="nav-icon">◉</span>
-                <span data-i18n="nav.profile">Профиль</span>
-            </button>
-
-            <button class="nav-item"
-                    onclick="showPage('news', this)">
-                <span class="nav-icon">◇</span>
-                <span data-i18n="nav.news">Новости</span>
-            </button>
-
-            <button class="nav-item"
-                    onclick="showPage('achievements', this)">
-                <span class="nav-icon">◆</span>
-                <span data-i18n="nav.achievements">Достижения</span>
-            </button>
-
-        </nav>
-
-        <div class="sidebar-bottom">
-
-            <div class="language-title"
-                 data-i18n="language.title">
-                Язык
-            </div>
-
-            <div class="language-switcher">
-
-                <button class="language-btn active"
-                        data-lang="ru"
-                        onclick="setLanguage('ru')">
-                    RU
-                </button>
-
-                <button class="language-btn"
-                        data-lang="en"
-                        onclick="setLanguage('en')">
-                    EN
-                </button>
-
-                <button class="language-btn"
-                        data-lang="kk"
-                        onclick="setLanguage('kk')">
-                    KZ
-                </button>
-
-            </div>
-
-            <button class="logout-button"
-                    onclick="window.location.href='/login'">
-                <span>↪</span>
-                <span data-i18n="nav.logout">Выйти</span>
-            </button>
-
+        <div class="dash-grid" style="margin-top:16px">
+          <div class="card">
+            <div class="card-title"><span data-i18n="dash.hwTitle">Домашние задания</span></div>
+            <div id="dashHw"></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span data-i18n="dash.gradesTitle">Последние оценки</span></div>
+            <div id="dashGrades"></div>
+          </div>
         </div>
-
-    </aside>
-
-    <!-- MAIN -->
-    <main class="main">
-
-        <header class="topbar">
-
-            <div class="topbar-left">
-
-                <div class="mobile-logo">
-                    DLS
-                </div>
-
-                <div>
-                    <div class="breadcrumb">
-                        DLS AI
-                    </div>
-
-                    <h2 id="pageName">
-                        Главная
-                    </h2>
-                </div>
-
-            </div>
-
-            <div class="topbar-right">
-
-                <div class="topbar-status">
-                    <span class="status-dot"></span>
-                    <span data-i18n="status.online">
-                        Система онлайн
-                    </span>
-                </div>
-
-                <div class="avatar">
-                    А
-                </div>
-
-            </div>
-
-        </header>
-
-        <div class="content">
-
-            <!-- HOME -->
-            <section id="home"
-                     class="page">
-
-                <div class="hero">
-
-                    <div class="hero-content">
-
-                        <span class="eyebrow"
-                              data-i18n="home.eyebrow">
-                            Добро пожаловать
-                        </span>
-
-                        <h1 data-i18n="home.title">
-                            Добро пожаловать в DLS AI
-                        </h1>
-
-                        <p data-i18n="home.text">
-                            Твоя школьная система для учёбы,
-                            расписания, домашних заданий
-                            и общения с AI.
-                        </p>
-
-                        <button class="primary-button"
-                                onclick="openAI()">
-                            <span>✦</span>
-                            <span data-i18n="home.askAI">
-                                Спросить DLS AI
-                            </span>
-                        </button>
-
-                    </div>
-
-                    <div class="hero-orb">
-
-                        <div class="orb-ring ring-one"></div>
-                        <div class="orb-ring ring-two"></div>
-
-                        <div class="orb-core">
-                            DLS
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="section-heading">
-
-                    <div>
-
-                        <span class="eyebrow"
-                              data-i18n="home.today">
-                            Сегодня
-                        </span>
-
-                        <h2 data-i18n="home.overview">
-                            Обзор дня
-                        </h2>
-
-                    </div>
-
-                </div>
-
-                <div class="stats-grid">
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon">◫</div>
-
-                        <span data-i18n="home.lessons">
-                            Уроков сегодня
-                        </span>
-
-                        <strong>4</strong>
-
-                    </div>
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon">✓</div>
-
-                        <span data-i18n="home.homework">
-                            Домашних задания
-                        </span>
-
-                        <strong>3</strong>
-
-                    </div>
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon">★</div>
-
-                        <span data-i18n="home.average">
-                            Средний балл
-                        </span>
-
-                        <strong>4.7</strong>
-
-                    </div>
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon">◆</div>
-
-                        <span data-i18n="home.achievements">
-                            Достижений
-                        </span>
-
-                        <strong>2</strong>
-
-                    </div>
-
-                </div>
-
-                <div class="dashboard-grid">
-
-                    <div class="dashboard-card">
-
-                        <div class="card-header">
-
-                            <div>
-
-                                <span class="eyebrow"
-                                      data-i18n="home.scheduleLabel">
-                                    На сегодня
-                                </span>
-
-                                <h3 data-i18n="home.schedule">
-                                    Расписание
-                                </h3>
-
-                            </div>
-
-                            <button onclick="showPage('schedule')">
-                                →
-                            </button>
-
-                        </div>
-
-                        <div class="lesson-mini">
-                            <span>09:00</span>
-                            <strong data-i18n="subjects.math">
-                                Математика
-                            </strong>
-                            <small>Каб. 204</small>
-                        </div>
-
-                        <div class="lesson-mini">
-                            <span>10:00</span>
-                            <strong data-i18n="subjects.physics">
-                                Физика
-                            </strong>
-                            <small>Каб. 302</small>
-                        </div>
-
-                        <div class="lesson-mini">
-                            <span>14:00</span>
-                            <strong data-i18n="subjects.english">
-                                Английский
-                            </strong>
-                            <small>Каб. 105</small>
-                        </div>
-
-                    </div>
-
-                    <div class="dashboard-card ai-preview">
-
-                        <div class="ai-symbol">✦</div>
-
-                        <span class="eyebrow"
-                              data-i18n="home.aiLabel">
-                            DLS AI
-                        </span>
-
-                        <h3 data-i18n="home.aiTitle">
-                            AI-помощник
-                        </h3>
-
-                        <p data-i18n="home.aiText">
-                            Задай вопрос по математике,
-                            физике, программированию
-                            или любому школьному предмету.
-                        </p>
-
-                        <button class="secondary-button"
-                                onclick="openAI()"
-                                data-i18n="home.openChat">
-                            Открыть AI Chat
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- DIARY -->
-            <section id="diary"
-                     class="page hidden">
-
-                <div class="page-heading">
-
-                    <span class="eyebrow"
-                          data-i18n="diary.kicker">
-                        Личный дневник
-                    </span>
-
-                    <h1 data-i18n="diary.title">
-                        Дневник
-                    </h1>
-
-                    <p data-i18n="diary.text">
-                        Твои уроки, оценки и домашние
-                        задания в одном месте.
-                    </p>
-
-                </div>
-
-                <div class="table-card">
-
-                    <div class="table-header">
-
-                        <h3 data-i18n="diary.today">
-                            Сегодня
-                        </h3>
-
-                    </div>
-
-                    <div class="diary-row">
-
-                        <span>09:00</span>
-
-                        <strong data-i18n="subjects.math">
-                            Математика
-                        </strong>
-
-                        <span class="grade">5</span>
-
-                        <span data-i18n="diary.hw1">
-                            Упражнения 24–26
-                        </span>
-
-                    </div>
-
-                    <div class="diary-row">
-
-                        <span>10:00</span>
-
-                        <strong data-i18n="subjects.physics">
-                            Физика
-                        </strong>
-
-                        <span class="grade">5</span>
-
-                        <span data-i18n="diary.hw2">
-                            Изучить §12
-                        </span>
-
-                    </div>
-
-                    <div class="diary-row">
-
-                        <span>14:00</span>
-
-                        <strong data-i18n="subjects.english">
-                            Английский
-                        </strong>
-
-                        <span class="grade">4</span>
-
-                        <span data-i18n="diary.hw3">
-                            Выучить 15 новых слов
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- STUDENTS -->
-            <section id="students"
-                     class="page hidden">
-
-                <div class="page-heading">
-
-                    <span class="eyebrow"
-                          data-i18n="students.kicker">
-                        Учебные группы
-                    </span>
-
-                    <h1 data-i18n="students.title">
-                        Ученики
-                    </h1>
-
-                    <p data-i18n="students.text">
-                        Ученики и спортивные направления DLS.
-                    </p>
-
-                </div>
-
-                <div id="studentsList"
-                     class="students-grid">
-                </div>
-
-            </section>
-
-            <!-- SCHEDULE -->
-            <section id="schedule"
-                     class="page hidden">
-
-                <div class="page-heading">
-
-                    <span class="eyebrow"
-                          data-i18n="schedule.kicker">
-                        Учебная неделя
-                    </span>
-
-                    <h1 data-i18n="schedule.title">
-                        Расписание
-                    </h1>
-
-                    <p data-i18n="schedule.text">
-                        Core 3 · 7 класс · BJJ
-                    </p>
-
-                </div>
-
-                <div class="week-switcher">
-
-                    <button class="week active">
-                        <strong data-i18n="week.mon">
-                            Пн
-                        </strong>
-                        <span>21</span>
-                    </button>
-
-                    <button class="week">
-                        <strong data-i18n="week.tue">
-                            Вт
-                        </strong>
-                        <span>22</span>
-                    </button>
-
-                    <button class="week">
-                        <strong data-i18n="week.wed">
-                            Ср
-                        </strong>
-                        <span>23</span>
-                    </button>
-
-                    <button class="week">
-                        <strong data-i18n="week.thu">
-                            Чт
-                        </strong>
-                        <span>24</span>
-                    </button>
-
-                    <button class="week">
-                        <strong data-i18n="week.fri">
-                            Пт
-                        </strong>
-                        <span>25</span>
-                    </button>
-
-                </div>
-
-                <div class="schedule-list">
-
-                    <div class="schedule-row">
-
-                        <span>09:00</span>
-
-                        <div>
-
-                            <strong data-i18n="subjects.math">
-                                Математика
-                            </strong>
-
-                            <small>
-                                <span data-i18n="schedule.teacher">
-                                    Преподаватель
-                                </span>
-                                ·
-                                <span data-i18n="schedule.room">
-                                    Кабинет
-                                </span>
-                                204
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                    <div class="schedule-row">
-
-                        <span>10:00</span>
-
-                        <div>
-
-                            <strong data-i18n="subjects.physics">
-                                Физика
-                            </strong>
-
-                            <small>
-                                <span data-i18n="schedule.teacher">
-                                    Преподаватель
-                                </span>
-                                ·
-                                <span data-i18n="schedule.room">
-                                    Кабинет
-                                </span>
-                                302
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                    <div class="schedule-row">
-
-                        <span>14:00</span>
-
-                        <div>
-
-                            <strong data-i18n="subjects.english">
-                                Английский
-                            </strong>
-
-                            <small>
-                                <span data-i18n="schedule.teacher">
-                                    Преподаватель
-                                </span>
-                                ·
-                                <span data-i18n="schedule.room">
-                                    Кабинет
-                                </span>
-                                105
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                    <div class="schedule-row">
-
-                        <span>16:00</span>
-
-                        <div>
-
-                            <strong data-i18n="subjects.informatics">
-                                Информатика
-                            </strong>
-
-                            <small>
-                                <span data-i18n="schedule.teacher">
-                                    Преподаватель
-                                </span>
-                                ·
-                                <span data-i18n="schedule.room">
-                                    Кабинет
-                                </span>
-                                401
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- HOMEWORK -->
-            <section id="homework"
-                     class="page hidden">
-
-                <div class="page-heading">
-
-                    <span class="eyebrow"
-                          data-i18n="homework.kicker">
-                        Учебные задачи
-                    </span>
-
-                    <h1 data-i18n="homework.title">
-                        Домашнее задание
-                    </h1>
-
-                    <p data-i18n="homework.text">
-                        Не забудь выполнить задания
-                        до следующего урока.
-                    </p>
-
-                </div>
-
-                <div class="homework-list">
-
-                    <div class="homework-card">
-
-                        <div class="task-number">
-                            01
-                        </div>
-
-                        <div class="task-content">
-
-                            <h3 data-i18n="homework.task1">
-                                Решить упражнения 24–26
-                            </h3>
-
-                            <span data-i18n="homework.due1">
-                                До завтра
-                            </span>
-
-                        </div>
-
-                        <button>○</button>
-
-                    </div>
-
-                    <div class="homework-card">
-
-                        <div class="task-number">
-                            02
-                        </div>
-
-                        <div class="task-content">
-
-                            <h3 data-i18n="homework.task2">
-                                Прочитать §12
-                                и ответить на вопросы
-                            </h3>
-
-                            <span data-i18n="homework.due2">
-                                До завтра
-                            </span>
-
-                        </div>
-
-                        <button>○</button>
-
-                    </div>
-
-                    <div class="homework-card">
-
-                        <div class="task-number">
-                            03
-                        </div>
-
-                        <div class="task-content">
-
-                            <h3 data-i18n="homework.task3">
-                                Выучить 15 новых слов
-                            </h3>
-
-                            <span data-i18n="homework.due3">
-                                До пятницы
-                            </span>
-
-                        </div>
-
-                        <button>○</button>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- GRADES -->
-            <section id="grades"
-                     class="page hidden">
-
-                <div class="page-heading">
-
-                    <span class="eyebrow"
-                          data-i18n="grades.kicker">
-                        Успеваемость
-                    </span>
-
-                    <h1 data-i18n="grades.title">
-                        Оценки
-                    </h1>
-
-                    <p data-i18n="grades.text">
-                        Твои текущие оценки
-                        по учебным предметам.
-                    </p>
-
-                </div>
-
-                <div class="grade-overview">
-
-                    <div class="grade-big">
-
-                        <span data-i18n="grades.average">
-                            Средний балл
-                        </span>
-
-                        <strong>4.7</strong>
-
-                    </div>
-
-                    <div class="grade-progress">
-
-                        <div class="progress-top">
-
-                            <span data-i18n="grades.progress">
-                                Отличная успеваемость
-                            </span>
-
-                            <strong>94%</strong>
-
-                        </div>
-
-                        <div class="progress-bar">
-
-                            <div style="width:94%"></div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="table-card">
-
-                    <div class="grade-table-row table-title">
-
-                        <span data-i18n="table.subject">
-                            Предмет
-                        </span>
-
-                        <span data-i18n="table.grades">
-                            Оценки
-                        </span>
-
-                        <span data-i18n="table.average">
-                            Средний
-                        </span>
-
-                    </div>
-
-                    <div class="grade-table-row">
-
-                        <strong data-i18n="subjects.math">
-                            Математика
-                        </strong>
-
-                        <span>5 · 5 · 4 · 5</span>
-
-                        <strong>4.8</strong>
-
-                    </div>
-
-                    <div class="grade-table-row">
-
-                        <strong data-i18n="subjects.physics">
-                            Физика
-                        </strong>
-
-                        <span>5 · 5 · 5</span>
-
-                        <strong>5.0</strong>
-
-                    </div>
-
-                    <div class="grade-table-row">
-
-                        <strong data-i18n="subjects.english">
-                            Английский
-                        </strong>
-
-                        <span>4 · 5 · 4 · 5</span>
-
-                        <strong>4.5</strong>
-
-                    </div>
-
-                    <div class="grade-table-row">
-
-                        <strong data-i18n="subjects.informatics">
-                            Информатика
-                        </strong>
-
-                        <span>5 · 5 · 5</span>
-
-                        <strong>5.0</strong>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- AI -->
-            <section id="ai"
-                     class="page hidden">
-
-                <div class="page-heading ai-heading">
-
-                    <span class="eyebrow">
-                        DLS AI
-                    </span>
-
-                    <h1 data-i18n="ai.title">
-                        AI-помощник
-                    </h1>
-
-                    <p data-i18n="ai.subtitle">
-                        Задавай вопросы на русском,
-                        английском или казахском.
-                    </p>
-
-                </div>
-
-                <div class="ai-panel">
-
-                    <div class="ai-panel-header">
-
-                        <div>
-
-                            <div class="ai-online">
-                                <span class="status-dot"></span>
-                                DLS AI
-                            </div>
-
-                        </div>
-
-                        <button class="clear-chat"
-                                onclick="clearChat()"
-                                data-i18n="ai.newChat">
-                            + Новый чат
-                        </button>
-
-                    </div>
-
-                    <div class="ai-language-bar">
-
-                        <span data-i18n="ai.language">
-                            Язык ответа:
-                        </span>
-
-                        <button class="ai-lang active"
-                                data-ai-lang="auto"
-                                onclick="setAILanguage('auto')">
-                            Auto
-                        </button>
-
-                        <button class="ai-lang"
-                                data-ai-lang="ru"
-                                onclick="setAILanguage('ru')">
-                            RU
-                        </button>
-
-                        <button class="ai-lang"
-                                data-ai-lang="en"
-                                onclick="setAILanguage('en')">
-                            EN
-                        </button>
-
-                        <button class="ai-lang"
-                                data-ai-lang="kk"
-                                onclick="setAILanguage('kk')">
-                            KZ
-                        </button>
-
-                    </div>
-
-                    <div id="chat"
-                         class="chat">
-
-                        <div class="bot-msg welcome-message">
-
-                            <div class="message-avatar">
-                                ✦
-                            </div>
-
-                            <div class="message-bubble">
-
-                                <strong data-i18n="ai.welcomeTitle">
-                                    Привет! Я DLS AI 👋
-                                </strong>
-
-                                <p data-i18n="ai.welcomeText">
-                                    Я помогу тебе с учёбой,
-                                    домашними заданиями,
-                                    математикой, физикой,
-                                    программированием
-                                    и английским языком.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="suggestions">
-
-                        <button
-                            onclick="sendSuggestion('Помоги мне с математикой')"
-                            data-i18n="suggestion.math">
-                            📘 Помоги с математикой
-                        </button>
-
-                        <button
-                            onclick="sendSuggestion('Объясни мне физику')"
-                            data-i18n="suggestion.physics">
-                            ⚡ Помоги с физикой
-                        </button>
-
-                        <button
-                            onclick="sendSuggestion('Объясни JavaScript простыми словами')"
-                            data-i18n="suggestion.code">
-                            💻 Объясни программирование
-                        </button>
-
-                        <button
-                            onclick="sendSuggestion('Помоги мне с английским')"
-                            data-i18n="suggestion.english">
-                            🇬🇧 Помоги с английским
-                        </button>
-
-                    </div>
-
-                    <div class="ai-input-area">
-
-                        <textarea
-                            id="question"
-                            data-i18n-placeholder="ai.placeholder"
-                            placeholder="Напиши вопрос..."
-                            rows="1"></textarea>
-
-                        <button
-                            id="sendAI"
-                            class="send-button"
-                            onclick="askAI()">
-                            ↑
-                        </button>
-
-                    </div>
-
-                    <div class="ai-note">
-
-                        <span>ⓘ</span>
-
-                        <span data-i18n="ai.note">
-                            DLS AI может допускать ошибки.
-                            Проверяй важную информацию.
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- PROFILE -->
-            <section id="profile"
-                     class="page hidden">
-
-                <div class="page-heading">
-
-                    <span class="eyebrow"
-                          data-i18n="profile.kicker">
-                        Личный кабинет
-                    </span>
-
-                    <h1 data-i18n="profile.title">
-                        Профиль
-                    </h1>
-
-                </div>
-
-                <div class="profile-card">
-
-                    <div class="profile-avatar">
-                        А
-                    </div>
-
-                    <div class="profile-main">
-
-                        <h2>
-                            Али Байрамов
-                        </h2>
-
-                        <span>
-                            DLS Student
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <div class="profile-grid">
-
-                    <div class="info-card">
-
-                        <span data-i18n="profile.student">
-                            Ученик
-                        </span>
-
-                        <strong>
-                            Али Байрамов
-                        </strong>
-
-                    </div>
-
-                    <div class="info-card">
-
-                        <span data-i18n="profile.class">
-                            Класс
-                        </span>
-
-                        <strong>
-                            7
-                        </strong>
-
-                    </div>
-
-                    <div class="info-card">
-
-                        <span data-i18n="profile.group">
-                            Группа
-                        </span>
-
-                        <strong>
-                            Core 3
-                        </strong>
-
-                    </div>
-
-                    <div class="info-card">
-
-                        <span data-i18n="profile.direction">
-                            Направление
-                        </span>
-
-                        <strong>
-                            BJJ
-                        </strong>
-
-                    </div>
-
-                    <div class="info-card">
-
-                        <span data-i18n="profile.status">
-                            Статус
-                        </span>
-
-                        <strong data-i18n="profile.active">
-                            Активен
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- NEWS -->
-            <section id="news"
-                     class="page hidden">
-
-                <div class="page-heading">
-
-                    <span class="eyebrow"
-                          data-i18n="news.kicker">
-                        DLS
-                    </span>
-
-                    <h1 data-i18n="news.title">
-                        Новости
-                    </h1>
-
-                    <p data-i18n="news.text">
-                        Последние новости школы.
-                    </p>
-
-                </div>
-
-                <div class="news-grid">
-
-                    <article class="news-card">
-
-                        <span class="news-date">
-                            DLS
-                        </span>
-
-                        <h3 data-i18n="news.item1.title">
-                            Новый учебный семестр
-                        </h3>
-
-                        <p data-i18n="news.item1.text">
-                            Расписание и учебные материалы
-                            обновлены.
-                        </p>
-
-                    </article>
-
-                    <article class="news-card">
-
-                        <span class="news-date">
-                            AI
-                        </span>
-
-                        <h3 data-i18n="news.item2.title">
-                            Обновление DLS AI
-                        </h3>
-
-                        <p data-i18n="news.item2.text">
-                            В AI Chat добавлена поддержка
-                            трёх языков.
-                        </p>
-
-                    </article>
-
-                    <article class="news-card">
-
-                        <span class="news-date">
-                            SPORT
-                        </span>
-
-                        <h3 data-i18n="news.item3.title">
-                            Спортивное направление
-                        </h3>
-
-                        <p data-i18n="news.item3.text">
-                            Добавлены группы BJJ и Judo.
-                        </p>
-
-                    </article>
-
-                </div>
-
-            </section>
-
-            <!-- ACHIEVEMENTS -->
-            <section id="achievements"
-                     class="page hidden">
-
-                <div class="page-heading">
-
-                    <span class="eyebrow"
-                          data-i18n="achievements.kicker">
-                        Твои результаты
-                    </span>
-
-                    <h1 data-i18n="achievements.title">
-                        Достижения
-                    </h1>
-
-                    <p data-i18n="achievements.text">
-                        Следи за своими успехами.
-                    </p>
-
-                </div>
-
-                <div class="achievements-grid">
-
-                    <div class="achievement-card">
-
-                        <div class="achievement-icon">
-                            ★
-                        </div>
-
-                        <h3 data-i18n="achievement.first.title">
-                            Первый шаг
-                        </h3>
-
-                        <p data-i18n="achievement.first.text">
-                            Выполнено первое домашнее задание.
-                        </p>
-
-                    </div>
-
-                    <div class="achievement-card">
-
-                        <div class="achievement-icon">
-                            ✦
-                        </div>
-
-                        <h3 data-i18n="achievement.ai.title">
-                            AI Explorer
-                        </h3>
-
-                        <p data-i18n="achievement.ai.text">
-                            Использовал DLS AI для учёбы.
-                        </p>
-
-                    </div>
-
-                    <div class="achievement-card locked">
-
-                        <div class="achievement-icon">
-                            ◇
-                        </div>
-
-                        <h3 data-i18n="achievement.goal.title">
-                            10 задач
-                        </h3>
-
-                        <p data-i18n="achievement.goal.text">
-                            Реши ещё несколько задач.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </section>
-
+      </section>
+
+      <!-- ============ DIARY ============ -->
+      <section class="page" id="page-diary">
+        <div class="day-switch">
+          <button class="btn" onclick="shiftDay(-1)">←</button>
+          <div class="day-label" id="diaryDayLabel">Понедельник, 22 сентября</div>
+          <button class="btn" onclick="shiftDay(1)">→</button>
         </div>
+        <div class="card" id="diaryList"></div>
+      </section>
+
+      <!-- ============ STUDENTS ============ -->
+      <section class="page" id="page-students">
+        <div class="toolbar">
+          <input class="input" id="studentSearch" placeholder="Поиск ученика…" oninput="renderStudents()" data-i18n-placeholder="students.search">
+          <select class="input" id="studentGroupFilter" onchange="renderStudents()">
+            <option value="all" data-i18n="students.allGroups">Все группы</option>
+            <option value="Core 1">Core 1</option>
+            <option value="Core 2">Core 2</option>
+            <option value="Core 3">Core 3</option>
+          </select>
+        </div>
+        <div id="studentsList"></div>
+      </section>
+
+      <!-- ============ SCHEDULE ============ -->
+      <section class="page" id="page-schedule">
+        <div class="group-tabs" id="scheduleGroupTabs"></div>
+        <div class="part-tabs" id="schedulePartTabs">
+          <button class="active" data-part="morning" onclick="setSchedulePart('morning')" data-i18n="schedule.morning">Утро</button>
+          <button data-part="afternoon" onclick="setSchedulePart('afternoon')" data-i18n="schedule.afternoon">День</button>
+        </div>
+        <div class="card">
+          <div class="sched-row head">
+            <span data-i18n="schedule.time">Время</span>
+            <span data-i18n="schedule.subject">Предмет</span>
+            <span class="sr-teacher" data-i18n="schedule.teacher">Преподаватель</span>
+            <span data-i18n="schedule.room">Аудитория</span>
+            <span class="sr-status" data-i18n="schedule.status">Статус</span>
+          </div>
+          <div id="scheduleList"></div>
+        </div>
+      </section>
+
+      <!-- ============ HOMEWORK ============ -->
+      <section class="page" id="page-homework">
+        <div class="grid grid-3" id="homeworkList"></div>
+      </section>
+
+      <!-- ============ GRADES ============ -->
+      <section class="page" id="page-grades">
+        <div class="card">
+          <div class="card-title"><span data-i18n="grades.academic">Учебные предметы</span></div>
+          <table>
+            <thead><tr>
+              <th data-i18n="grades.subject">Предмет</th>
+              <th data-i18n="grades.grade">Оценка</th>
+              <th data-i18n="grades.date">Дата</th>
+              <th data-i18n="grades.type">Тип работы</th>
+            </tr></thead>
+            <tbody id="gradesTable"></tbody>
+          </table>
+        </div>
+        <div class="card" style="margin-top:16px">
+          <div class="card-title"><span data-i18n="grades.sport">Спортивное направление · BJJ</span></div>
+          <div id="beltList"></div>
+        </div>
+      </section>
+
+      <!-- ============ AI CHAT ============ -->
+      <section class="page" id="page-ai">
+        <div class="chat-wrap">
+          <div class="chat-toolbar">
+            <div class="ai-lang-switch" id="aiLangSwitch">
+              <button data-alang="auto" class="active" onclick="setAiLang('auto')">AUTO</button>
+              <button data-alang="ru" onclick="setAiLang('ru')">RU</button>
+              <button data-alang="en" onclick="setAiLang('en')">EN</button>
+              <button data-alang="kz" onclick="setAiLang('kz')">KZ</button>
+            </div>
+            <button class="btn" onclick="clearChat()" data-i18n="ai.clear">Очистить чат</button>
+          </div>
+
+          <div class="chat-log" id="chatLog"></div>
+
+          <div class="chat-suggest" id="chatSuggest">
+            <button class="chip-btn" onclick="sendQuick('ai.s1')" data-i18n="ai.s1">Объясни тему</button>
+            <button class="chip-btn" onclick="sendQuick('ai.s2')" data-i18n="ai.s2">Помоги с домашним заданием</button>
+            <button class="chip-btn" onclick="sendQuick('ai.s3')" data-i18n="ai.s3">Переведи текст</button>
+            <button class="chip-btn" onclick="sendQuick('ai.s4')" data-i18n="ai.s4">Объясни проще</button>
+          </div>
+
+          <div class="chat-input-row">
+            <textarea class="input" id="chatInput" rows="1" data-i18n-placeholder="ai.placeholder" placeholder="Напиши сообщение…"></textarea>
+            <button class="send-btn" onclick="sendMessage()" aria-label="Send">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z"/></svg>
+            </button>
+          </div>
+          <p class="chat-note" data-i18n="ai.note">DLS AI использует Google Gemini и может ошибаться — проверяй важные факты.</p>
+        </div>
+      </section>
+
+      <!-- ============ PROFILE ============ -->
+      <section class="page" id="page-profile">
+        <div class="card">
+          <div class="profile-head">
+            <div class="profile-av">АБ</div>
+            <div>
+              <h2>Али Байрамов</h2>
+              <p data-i18n="profile.subtitle">Ученик Divergents Leadership School</p>
+              <div class="profile-tags">
+                <span class="pill" data-i18n="profile.class">7 класс</span>
+                <span class="pill pill-new">Core 3</span>
+                <span class="pill pill-progress">BJJ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:16px">
+          <div class="card-title"><span data-i18n="profile.info">Информация</span></div>
+          <div class="info-row"><span data-i18n="profile.fullName">Полное имя</span><span>Bayramov Ali</span></div>
+          <div class="info-row"><span data-i18n="profile.classLabel">Класс</span><span>7</span></div>
+          <div class="info-row"><span data-i18n="profile.groupLabel">Группа</span><span>Core 3</span></div>
+          <div class="info-row"><span data-i18n="profile.direction">Направление</span><span>BJJ</span></div>
+          <div class="info-row"><span data-i18n="profile.mentor">Куратор</span><span>Т. Есенова</span></div>
+        </div>
+      </section>
+
+      <!-- ============ NEWS ============ -->
+      <section class="page" id="page-news">
+        <div class="grid grid-2" id="newsList"></div>
+      </section>
+
+      <!-- ============ ACHIEVEMENTS ============ -->
+      <section class="page" id="page-achievements">
+        <div class="grid grid-4" id="achList"></div>
+      </section>
 
     </main>
-
+  </div>
 </div>
 
-<!-- IMPORTANT: app.js must be loaded after the HTML -->
-<script src="/script.js"></script>
-
+<script src="script.js"></script>
 </body>
 </html>
